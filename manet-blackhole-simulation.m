@@ -1,4 +1,3 @@
-
 clear; clc; close all;
 
 
@@ -20,20 +19,25 @@ fig = figure('Name', 'AODV Blackhole Simulation', 'Position', [100, 100, 700, 70
 disp('--- Simulation Started ---');
 disp('The simulation will stop when you close the window.');
 
+
+blackholeNode = randi(numNodes);
+fprintf('Black Hole: Node %d\n', blackholeNode);
+
+
 while ishandle(fig) 
     clf(fig); hold on; grid on; axis([0 areaSize 0 areaSize]);
     title('MANET Blackhole Attack');
-    
-    totalAttempts = totalAttempts + 1; % Her adımı bir RREQ denemesi say
+
+    totalAttempts = totalAttempts + 1; 
+   
     sourceNode = randi(numNodes);
     destNode = randi(numNodes);
-    while isequal(sourceNode, destNode)
+
+   
+    while isequal(sourceNode, destNode) || isequal(sourceNode, blackholeNode) || isequal(destNode, blackholeNode)
+        sourceNode = randi(numNodes);
         destNode = randi(numNodes);
     end
-    blackholeNode = randi(numNodes);
-    while isequal(blackholeNode, sourceNode) || isequal(blackholeNode, destNode)
-        blackholeNode = randi(numNodes);
-    end 
     
     X = X + (rand(1, numNodes) - 0.5) * nodeSpeed;
     Y = Y + (rand(1, numNodes) - 0.5) * nodeSpeed;
