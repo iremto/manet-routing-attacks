@@ -14,6 +14,8 @@ totalAttempts = 0;
 droppedPackets = 0;
 successRateHistory = [];
 
+grayholeNode = randi(numNodes);
+fprintf('Gray Hole: Node %d\n', grayholeNode);
 
 fig = figure('Name', 'AODV Grayhole Simulation', 'Position', [100, 100, 700, 700]);
 
@@ -30,7 +32,7 @@ while ishandle(fig)
     while isequal(sourceNode, destNode)
         destNode = randi(numNodes);
     end
-    grayholeNode = randi(numNodes);
+  
     while isequal(grayholeNode, sourceNode) || isequal(grayholeNode, destNode)
         grayholeNode = randi(numNodes);
     end 
